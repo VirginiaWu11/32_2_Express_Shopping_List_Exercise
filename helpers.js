@@ -10,7 +10,7 @@ class Helpers {
     }
     static findItem(name) {
         console.log("inside findItem", name, items);
-        return items.find((element) => element.name === name);
+        return items.find((item) => item.name === name);
         // console.log(n);
     }
     static updateItem(existingItem, name, price) {
