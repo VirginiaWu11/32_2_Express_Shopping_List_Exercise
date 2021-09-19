@@ -1,10 +1,14 @@
 const express = require("express");
-
 const router = new express.Router();
+const ExpressError = require("../expressError");
+const items = require("../fakeDb");
+
 // app.js app.use with prefix routes with /items, so these routes do not need /items
 
 //1. this should render a list of shopping items
-router.get("/", (req, res) => {});
+router.get("/", (req, res) => {
+    res.json({ items });
+});
 
 // Here is what a response looks like:
 // [{“name”: “popsicle”, “price”: 1.45}, {“name”:”cheerios”, “price”: 3.40}]
