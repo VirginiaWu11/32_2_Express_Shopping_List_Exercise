@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 // [{“name”: “popsicle”, “price”: 1.45}, {“name”:”cheerios”, “price”: 3.40}]
 
 //2. this route should accept JSON data and add it to the shopping list.
-router.post("/", (req, res) => {
+router.post("/", (req, res, next) => {
     try {
         checkForName(req.body.name);
         checkForPrice(req.body.price);
