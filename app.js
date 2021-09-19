@@ -10,6 +10,10 @@ const ExpressError = require("./expressError");
 app.use(express.json());
 app.use("/items", itemsRoutes);
 
+app.get("/", (req, res) => {
+    res.send("<h1>Welcome</h1>");
+});
+
 /** 404 handler */
 
 app.use(function (req, res, next) {
