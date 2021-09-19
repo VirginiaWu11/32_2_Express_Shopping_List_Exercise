@@ -32,7 +32,18 @@ router.post("/", (req, res, next) => {
 // {“name”:”popsicle”, “price”: 1.45} => {“added”: {“name”: “popsicle”, “price”: 1.45}}
 
 //3. this route should display a single item’s name and price.
-router.get("/", (req, res) => {});
+router.get("/:name", (req, res, next) => {
+    try {
+        checkForName(req.params.name);
+        let foundItem = items.find(
+            (element) => element.name === req.params.name
+        );
+        return res.json({ item: foundItem });
+    } catch (e) {
+        return next(e);
+    }
+});
+
 // Here is what a sample response looks like:
 // {“name”: “popsicle”, “price”: 1.45}
 
