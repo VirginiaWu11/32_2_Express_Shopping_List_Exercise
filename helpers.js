@@ -9,9 +9,7 @@ class Helpers {
         if (!price) throw new ExpressError("Price is required", 400);
     }
     static findItem(name) {
-        console.log("inside findItem", name, items);
         return items.find((item) => item.name === name);
-        // console.log(n);
     }
     static updateItem(existingItem, name, price) {
         existingItem.name = name;

@@ -1,5 +1,5 @@
 const express = require("express");
-const router = new express.Router();
+const router = express.Router();
 const ExpressError = require("../expressError");
 const items = require("../fakeDB");
 const {
@@ -26,7 +26,6 @@ router.post("/", (req, res, next) => {
         checkForPrice(req.body.price);
         const newItem = { name: req.body.name, price: req.body.price };
         items.push(newItem);
-        console.log(items);
         return res.status(201).json({ item: newItem });
     } catch (e) {
         return next(e);
