@@ -2,6 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const ExpressError = require("../expressError");
 const items = require("../fakeDb");
+const { checkForName, checkForPrice } = require("../helpers.js");
 
 // app.js app.use with prefix routes with /items, so these routes do not need /items
 
@@ -14,7 +15,18 @@ router.get("/", (req, res) => {
 // [{“name”: “popsicle”, “price”: 1.45}, {“name”:”cheerios”, “price”: 3.40}]
 
 //2. this route should accept JSON data and add it to the shopping list.
-router.post("/", (req, res) => {});
+router.post("/", (req, res) => {
+    try {
+        checkForName(req.body.name);
+        checkForPrice(req.body.price);
+        const newItem = { name: req.body.name, price: req.body.price };
+        items.push(newItem);
+        console.log(items);
+        return res.status(201).json({ item: newItem });
+    } catch (e) {
+        return next(e);
+    }
+});
 
 // Here is what a sample req,resuest/response looks like:
 // {“name”:”popsicle”, “price”: 1.45} => {“added”: {“name”: “popsicle”, “price”: 1.45}}
