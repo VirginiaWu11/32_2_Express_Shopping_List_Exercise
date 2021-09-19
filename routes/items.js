@@ -40,9 +40,7 @@ router.post("/", (req, res, next) => {
 router.get("/:name", (req, res, next) => {
     try {
         checkForName(req.params.name);
-        let foundItem = items.find(
-            (element) => element.name === req.params.name
-        );
+        let foundItem = findItem(req.params.name);
         return res.json({ item: foundItem });
     } catch (e) {
         return next(e);
@@ -59,13 +57,6 @@ router.patch("/:name", (req, res, next) => {
         checkForName(req.body.name);
         checkForName(req.body.price);
         let foundItem = findItem(req.params.name);
-        // console.log(
-        //     foundItem,
-        //     req.body.name,
-        //     req.body.price,
-        //     req.params.name,
-        //     findItem(req.params.name)
-        // );
         foundItem = updateItem(foundItem, req.body.name, req.body.price);
 
         return res.json({ item: foundItem });
