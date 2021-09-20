@@ -62,6 +62,12 @@ describe("PATCH /items/:name", () => {
         expect(res.statusCode).toBe(200);
         expect(res.body).toEqual({ item: { name: "egg", price: 4 } });
     });
+    test("Responds with 404 for invalid item", async () => {
+        const res = await request(app)
+            .patch(`/items/lala`)
+            .send({ name: "eggs", price: 7 });
+        expect(res.statusCode).toBe(404);
+    });
 });
 
 describe("DELETE /items/:name", () => {
