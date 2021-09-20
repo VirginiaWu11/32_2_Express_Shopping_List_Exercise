@@ -21,3 +21,15 @@ describe("GET /items", () => {
         expect(res.body).toEqual({ items: [eggs] });
     });
 });
+
+describe("GET /items/:name", () => {
+    test("Get item by name", async () => {
+        const res = await request(app).get(`/items/${eggs.name}`);
+        expect(res.statusCode).toBe(200);
+        expect(res.body).toEqual({ item: eggs });
+    });
+    test("Respond with 404 for invalid item", async () => {
+        const res = await request(app).get(`/items/bananas`);
+        expect(res.statusCode).toBe(404);
+    });
+});

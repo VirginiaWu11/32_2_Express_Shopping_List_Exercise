@@ -40,6 +40,9 @@ router.get("/:name", (req, res, next) => {
     try {
         checkForName(req.params.name);
         let foundItem = findItem(req.params.name);
+        if (foundItem === undefined) {
+            throw new ExpressError("Item not found", 404);
+        }
         return res.json({ item: foundItem });
     } catch (e) {
         return next(e);
@@ -57,7 +60,9 @@ router.patch("/:name", (req, res, next) => {
         checkForName(req.body.price);
         let foundItem = findItem(req.params.name);
         foundItem = updateItem(foundItem, req.body.name, req.body.price);
-
+        if (foundItem === undefined) {
+            throw new ExpressError("Item not found", 404);
+        }
         return res.json({ item: foundItem });
     } catch (e) {
         return next(e);
