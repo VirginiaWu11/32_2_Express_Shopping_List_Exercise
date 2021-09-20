@@ -1,4 +1,5 @@
 process.env.NODE_ENV = "test";
+const exp = require("constants");
 const request = require("supertest");
 
 const app = require("../app");
@@ -60,5 +61,17 @@ describe("PATCH /items/:name", () => {
             .send({ name: "egg", price: 4 });
         expect(res.statusCode).toBe(200);
         expect(res.body).toEqual({ item: { name: "egg", price: 4 } });
+    });
+});
+
+describe("DELETE /items/:name", () => {
+    test("Deleteing an Item", async () => {
+        const res = await request(app).delete(`/items/${eggs.name}`);
+        expect(res.statusCode).toBe(200);
+        expect(res.body).toEqual({ message: "Deleted" });
+    });
+    test("Responds with 404 for deleting an invalid item", async () => {
+        const res = await request(app).delete(`/items/banana`);
+        expect(res.statusCode).toBe(404);
     });
 });
