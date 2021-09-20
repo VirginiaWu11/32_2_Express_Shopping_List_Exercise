@@ -52,3 +52,13 @@ describe("POST /items", () => {
         expect(res.statusCode).toBe(400);
     });
 });
+
+describe("PATCH /items/:name", () => {
+    test("Updating an Item", async () => {
+        const res = await request(app)
+            .patch(`/items/${eggs.name}`)
+            .send({ name: "egg", price: 4 });
+        expect(res.statusCode).toBe(200);
+        expect(res.body).toEqual({ item: { name: "egg", price: 4 } });
+    });
+});
