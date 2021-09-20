@@ -33,3 +33,22 @@ describe("GET /items/:name", () => {
         expect(res.statusCode).toBe(404);
     });
 });
+
+describe("POST /items", () => {
+    test("Adding an Item", async () => {
+        const newItem = { name: "chocolate", price: 3 };
+        const res = await request(app).post(`/items`).send(newItem);
+        expect(res.statusCode).toBe(201);
+        expect(res.body).toEqual({ item: newItem });
+    });
+    test("Responds with 400 if name is missing", async () => {
+        const res = await request(app).post(`/items`).send({ price: 3 });
+        expect(res.statusCode).toBe(400);
+    });
+    test("Responds with 400 if price is missing", async () => {
+        const res = await request(app)
+            .post(`/items`)
+            .send({ name: "chocolate" });
+        expect(res.statusCode).toBe(400);
+    });
+});
